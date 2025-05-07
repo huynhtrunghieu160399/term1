@@ -2,13 +2,13 @@
 # TODO -- create header comments
 # Name: Trung Hieu HUYNH
 # ID: 12281833
-# Project name: Nemo Reef Tours program
+# Project name: Nemo Reef Tours Program
 # 
 #----------------------------------------------------------------------------------------------------------------------
 
-#----------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # Constants Declaration
-#----------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 ENTER_BOOKING = 1
 DISPLAY_BOOKINGS = 2
 DISPLAY_STATISTICS = 3
@@ -19,16 +19,20 @@ EXIT = 7
 
 # TODO -- declare any further constants
 PASSENGER_CHARGE = 95.50
-
-#----------------------------------------------------------------------------------------------------------------------
-# TODO -- declare two lists one for the booking names and another for the number of passengers
-
+TEN_PERCENT_DISCOUNT = 10
+FIFTEEN_PERCENT_DISCOUNT = 15
+TWENTY_PERCENT_DISCOUNT = 20
+#------------------------------------------------------------------------------
+# TODO -- declare two lists, one for the booking names and another for the number of passengers
+booking_names = []
+booking_passengers = []
 
 # TODO -- declare variable for the number of bookings entered (integer)
+number_of_bookings = 0
 
-#----------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # Function Definition
-
+#------------------------------------------------------------------------------
 def print_heading():
     print("{:30s}{:11s}{:6s}".format("Booking name","Passengers", "Charge"))
 
@@ -69,10 +73,31 @@ def process_menu_item():
 
 # Function 1
 def enter_booking():
+    
     # TODO -- read in the booking name (as a string)
+    booking_name =""
 	# TODO -- create validation loop (do this after getting the other functionality working)
+    while booking_name == "":
+        booking_name = str(input("Please enter the booking name ==> "))
+        if booking_name != "":
+            break
+        else:
+            print("ERROR: booking name cannot be blank.")
 
+        
 	# TODO -- read in the number of passengers
+    # "Enter the number of passengers for " + booking_name + " ==> "
+    number_of_passengers = 0
+    while True:
+        number_of_passengers = int(input("Please Enter the number of passengers for " + "'" + booking_name + "'"+ " ==> "))
+        if number_of_passengers > 1:
+            break
+        else:
+            print("ERROR: must be numeric and number of passengers must be grater than or equal to one")
+            number_of_passengers == ""
+        # elif type(number_of_passengers) == str:
+        #     print("ERROR: must be numeric and number of passengers must be grater than or equal to one")
+
 	# TODO -- create validation loop (do this after getting the other functionality working)
 
 	# TODO -- add the booking name and the number of passengers to the parallel lists
@@ -127,12 +152,12 @@ def read_bookings():
     pass    
 
 
-#----------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # Main
-#----------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 print("Welcome to the Nemo Reef Tours Management System")
 process_menu_item() 
 
-#----------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
 # End
-#----------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------------
