@@ -74,29 +74,30 @@ def process_menu_item():
 # Function 1
 def enter_booking():
     
-    # TODO -- read in the booking name (as a string)
+    # Read in the booking name (as a string)
     booking_name =""
-	# TODO -- create validation loop (do this after getting the other functionality working)
+    booking_name = str(input("Please enter the booking name ==> "))
     while booking_name == "":
-        booking_name = str(input("Please enter the booking name ==> "))
         if booking_name != "":
             break
         else:
             print("ERROR: booking name cannot be blank.")
+            booking_name = str(input("Please enter the booking name ==> "))
 
         
-	# TODO -- read in the number of passengers
-    # "Enter the number of passengers for " + booking_name + " ==> "
-    number_of_passengers = 0
-    while True:
-        number_of_passengers = int(input("Please Enter the number of passengers for " + "'" + booking_name + "'"+ " ==> "))
-        if number_of_passengers > 1:
-            break
+	# Read in the number of passengers
+    # Hint: "Enter the number of passengers for " + booking_name + " ==> "
+    number_of_passengers = ""
+    while number_of_passengers == "":
+        number_of_passengers = input("Please Enter the number of passengers for " + "'" + booking_name + "'"+ " ==> ")
+        if number_of_passengers == "":
+            print("ERROR: must be numeric and number of passengers must be grater than or equal to one")
+        if number_of_passengers != "":
+            if number_of_passengers > 1:
+                break
         else:
             print("ERROR: must be numeric and number of passengers must be grater than or equal to one")
             number_of_passengers == ""
-        # elif type(number_of_passengers) == str:
-        #     print("ERROR: must be numeric and number of passengers must be grater than or equal to one")
 
 	# TODO -- create validation loop (do this after getting the other functionality working)
 
