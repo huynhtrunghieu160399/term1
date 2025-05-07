@@ -1,5 +1,14 @@
+#----------------------------------------------------------------------------------------------------------------------
 # TODO -- create header comments
+# Name: Trung Hieu HUYNH
+# ID: 12281833
+# Project name: Nemo Reef Tours program
+# 
+#----------------------------------------------------------------------------------------------------------------------
 
+#----------------------------------------------------------------------------------------------------------------------
+# Constants Declaration
+#----------------------------------------------------------------------------------------------------------------------
 ENTER_BOOKING = 1
 DISPLAY_BOOKINGS = 2
 DISPLAY_STATISTICS = 3
@@ -9,10 +18,16 @@ READ_BOOKINGS = 6
 EXIT = 7
 
 # TODO -- declare any further constants
+PASSENGER_CHARGE = 95.50
 
+#----------------------------------------------------------------------------------------------------------------------
 # TODO -- declare two lists one for the booking names and another for the number of passengers
+
+
 # TODO -- declare variable for the number of bookings entered (integer)
 
+#----------------------------------------------------------------------------------------------------------------------
+# Function Definition
 
 def print_heading():
     print("{:30s}{:11s}{:6s}".format("Booking name","Passengers", "Charge"))
@@ -52,7 +67,7 @@ def process_menu_item():
             read_bookings()
         choice = get_menu_item()
 
-
+# Function 1
 def enter_booking():
     # TODO -- read in the booking name (as a string)
 	# TODO -- create validation loop (do this after getting the other functionality working)
@@ -68,6 +83,7 @@ def enter_booking():
 
     pass
 
+# Function 2
 def display_bookings():
     print_heading()
 
@@ -77,6 +93,7 @@ def display_bookings():
 
     pass
 
+# Function 3
 def display_statistics():    
     # TODO -- check if there has been an booking entered (do this after getting the other functionality working)
 
@@ -84,6 +101,7 @@ def display_statistics():
     
     pass
 
+# Function 4
 def search_bookings():
     # TODO -- check if there has been an booking entered (do this after getting the other functionality working)
 
@@ -95,10 +113,12 @@ def search_bookings():
 
     pass
 
+# Function 5
 def save_bookings():
     # TODO -- save the entries as a csv (comma seperated file) in the current folder called bookings.csv
     pass
 
+# Function 6
 def read_bookings():
     # TODO -- check if the file exists
 
@@ -106,5 +126,13 @@ def read_bookings():
 
     pass    
 
+
+#----------------------------------------------------------------------------------------------------------------------
+# Main
+#----------------------------------------------------------------------------------------------------------------------
 print("Welcome to the Nemo Reef Tours Management System")
 process_menu_item() 
+
+#----------------------------------------------------------------------------------------------------------------------
+# End
+#----------------------------------------------------------------------------------------------------------------------
