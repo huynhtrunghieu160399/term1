@@ -5,6 +5,10 @@
 # Project name: Nemo Reef Tours Program
 # 
 #----------------------------------------------------------------------------------------------------------------------
+# Cau hoi:
+# 1. Cac bien nen duoc khai bao theo dinh dang nao: camel hay ...
+# 2. 
+#----------------------------------------------------------------------------------------------------------------------
 
 #------------------------------------------------------------------------------
 # Constants Declaration
@@ -74,9 +78,12 @@ def process_menu_item():
 # Function 1
 def enter_booking():
     
+    # Step 1: 
     # Read in the booking name (as a string)
     booking_name =""
     booking_name = str(input("Please enter the booking name ==> "))
+    
+    # Validation loop
     while booking_name == "":
         if booking_name != "":
             break
@@ -84,24 +91,31 @@ def enter_booking():
             print("ERROR: booking name cannot be blank.")
             booking_name = str(input("Please enter the booking name ==> "))
 
-        
-	# Read in the number of passengers
-    # Hint: "Enter the number of passengers for " + booking_name + " ==> "
     number_of_passengers = ""
-    while number_of_passengers == "":
-        number_of_passengers = input("Please Enter the number of passengers for " + "'" + booking_name + "'"+ " ==> ")
-        if number_of_passengers == "":
-            print("ERROR: must be numeric and number of passengers must be grater than or equal to one")
+    
+    # Step 2: 
+    # Validation loop
+    while True:
+        # Read in the number of passengers
+        # Hint: "Enter the number of passengers for " + booking_name + " ==> "
+        number_of_passengers = input("Please enter the number of passengers for " + "'" + booking_name + "'"+ " ==> ")
+
         if number_of_passengers != "":
-            if number_of_passengers > 1:
-                break
-        else:
-            print("ERROR: must be numeric and number of passengers must be grater than or equal to one")
-            number_of_passengers == ""
+            all_digits = True
+            for ch in number_of_passengers:
+                if ch < "0" or ch > "9":
+                    all_digits = False
+                    break
 
-	# TODO -- create validation loop (do this after getting the other functionality working)
-
+            if all_digits:
+                number = int(number_of_passengers)
+                if number >= 1:
+                    break
+                else:
+                    print("ERROR: must be numeric and number of passengers must be grater than or equal to one")
+    # Step 3
 	# TODO -- add the booking name and the number of passengers to the parallel lists
+    
     
 	# TODO -- display the booking name, number of passengers and the charge as a receipt as per the specification
 
