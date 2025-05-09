@@ -10,6 +10,9 @@
 # 3. 
 #*********************************************************************************************************************
 
+import csv # For function 5: save_bookings()
+import os # For function 6: read_bookings()
+
 #-----------------------------------------------------------------------------
 # Constants Declaration
 #-----------------------------------------------------------------------------
@@ -257,19 +260,54 @@ def search_bookings():
 # Function 5
 #----------------------------------------------------------
 def save_bookings():
-    # TODO -- save the entries as a csv (comma seperated file) in the current folder called bookings.csv
-    pass
+    if number_of_bookings == 0:
+        # ERR: Hiển thị gì khi chưa có data nào được nhập
+        print("ERROR: Please enter at least one booking")
+        return
+    else:
+        # Save the entries as a csv (comma seperated file) in the current folder called bookings.csv
+        # Open the bookings.csv file with write mode ("w"), will overwrite if the file already exists
+        with open('bookings.csv', 'w', newline='') as file:
+            writer = csv.writer(file)
 
+            # Write title (optional)
+            writer.writerow(["Booking Name", "Passengers"])
+
+            # Write each booking data line (passenger name and number)    
+            for i in range(number_of_bookings):
+                writer.writerow([booking_names[i], booking_passengers[i]])
+
+    print("Data successfully saved to file")
 
 #----------------------------------------------------------
 # Function 6
 #----------------------------------------------------------
 def read_bookings():
-    # TODO -- check if the file exists
+    # Check if the file exists
+    # Read the entries and add them to the parallel lists
+    # Check Check if the file exists (bookings.csv file)
+    if not os.path.exists("./bookings.csv"):
+        print("ERROR - file does not exist")
+        return
+    
+    # Open the bookings.csv file and read the data from it
+    with open('bookings.csv', 'r') as file:
+        # Skip the header line if present
+        next(file)
 
-    # TODO -- read the entries and add them to the parallel lists
+        # Iterate through each line in the file and split the values
+        for line in file:
+            # Split the booking name and passenger number from each line
+            booking_name, passengers = line.strip().split(",")
+            booking_names.append(booking_name)
+            booking_passengers.append(int(passengers)) # Convert the passenger number to int
+    
+    # Cập nhật số lượng bookings
+    global number_of_bookings
+    number_of_bookings = len(booking_names)
 
-    pass    
+    print("Data successfully read from the file")
+    print(f"Loaded {number_of_bookings} bookings.")  # Kiểm tra xem có bao nhiêu booking đã được đọc vào
 
 
 #-----------------------------------------------------------------------------
