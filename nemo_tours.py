@@ -23,9 +23,11 @@ EXIT = 7
 
 # Declare any further constants
 PASSENGER_CHARGE = 95.50
-TEN_PERCENT_DISCOUNT = 10
-FIFTEEN_PERCENT_DISCOUNT = 15
-TWENTY_PERCENT_DISCOUNT = 20
+
+TEN_PERCENT_DISCOUNT = 0.1         #10% discount for a booking with three to five passengers
+FIFTEEN_PERCENT_DISCOUNT = 0.15    #15% discount for a booking of more than six to ten passengers
+TWENTY_PERCENT_DISCOUNT = 0.2      #20% discount for more than ten passengers on the total charge
+
 #-----------------------------------------------------------------------------
 # Declare two lists, one for the booking names and another for the number of passengers
 booking_names = []
@@ -112,11 +114,11 @@ def get_number_of_passenger(booking_name):
 def calculate_charge(passengers):
     charge = passengers * PASSENGER_CHARGE
     if passengers >= 11:
-        charge *= (1 - TWENTY_PERCENT_DISCOUNT / 100)
+        charge = charge*(1 - TWENTY_PERCENT_DISCOUNT)
     elif passengers >= 6:
-        charge *= (1 - FIFTEEN_PERCENT_DISCOUNT / 100)
+        charge = charge*(1 - FIFTEEN_PERCENT_DISCOUNT)
     elif passengers >= 3:
-        charge *= (1 - TEN_PERCENT_DISCOUNT / 100)
+        charge = charge*(1 - TEN_PERCENT_DISCOUNT)
     return charge
 
 
@@ -133,7 +135,7 @@ def print_receipt(name, passengers, charge):
 # Function 1:
 #----------------------------------------------------------
 def enter_booking():
-    global number_of_bookings
+    global number_of_bookings # ERR???? re-define????
 
     # Calling "Sub_function 1" - get_booking_name: to read in the booking name (as a string)
     booking_name = get_booking_name()
@@ -158,44 +160,106 @@ def enter_booking():
 # Function 2:
 #----------------------------------------------------------
 def display_bookings():
-    print_heading()
+    # Check if there has been an booking entered (do this after getting the other functionality working)
+    if number_of_bookings == 0:
+        print("ERROR: Please enter at least one booking")
+        return
+    else: 
+        print_heading()
+        # Display all of the entries entered so far as per the specification
+        # Loop all the booking names and passengers
+        for i in range(number_of_bookings):
+            # Calculate the charge for each booking using the calculate_charge function
+            charge = calculate_charge(booking_passengers[i])
 
-    # TODO -- check if there has been an booking entered (do this after getting the other functionality working)
-
-	# TODO -- display all of the entries entered so far as per the specification
-
-    pass
+            # Display each booking's details in the specified format
+            print("{:30s}{:<11d}${:4.2f}".format(booking_names[i], booking_passengers[i], charge))
 
 #----------------------------------------------------------
 # Function 3
 #----------------------------------------------------------
 def display_statistics():    
-    # TODO -- check if there has been an booking entered (do this after getting the other functionality working)
-
-    # TODO -- loop though the current entries in the lists and calculate and display the statistics
-    
-    pass
+    # Check if there has been an booking entered (do this after getting the other functionality working)
+    if number_of_bookings == 0:
+        print("ERROR: Please enter at least one booking")
+        return
+    else:
+        # Initialize variables for tracking statistics
+        min_passenger = booking_passengers[0]
+        max_passenger = booking_passengers[0]
+        min_booking_name = booking_names[0]
+        max_booking_name = booking_names[0]
+        
+        total_passengers = 0
+        total_charge = 0.0
+        
+        # Loop though the current entries in the lists and calculate and display the statistics
+        for i in range(number_of_bookings):
+            passengers = booking_passengers[i]
+            charge = calculate_charge(passengers)
+            
+            # Update total passengers and charges
+            total_passengers += passengers
+            total_charge += charge
+            
+            # Update min and max passenger count and corresponding booking names
+            if passengers < min_passenger:
+                min_passenger = passengers
+                min_booking_name = booking_names[i]
+            if passengers > max_passenger:
+                max_passenger = passengers
+                max_booking_name = booking_names[i]
+                
+            # Calculate average number of passengers
+            # Ensure floating-point division
+            average_passengers = total_passengers / number_of_bookings
+            
+            # Display the statistics info
+            #ERR: Trường hợp chỉ có 1 người đặt bàn thì sao???
+            print("\nStatistics for Nemo Tours  ")
+            print(f"{max_booking_name} has the maximum number of {max_passenger} passengers")
+            print(f"{min_booking_name} has the minimum number of {min_passenger} passengers")
+            print(f"Average number of passengers per booking is {average_passengers:.2f}")
+            print(f"The total charges are: ${total_charge:.2f}")
+            
 
 #----------------------------------------------------------
 # Function 4
 #----------------------------------------------------------
 def search_bookings():
-    # TODO -- check if there has been an booking entered (do this after getting the other functionality working)
-
-    # TODO -- read the search key
-
-    # TODO -- loop though the current entries in the booking names list to search for the search key
-
-    # TODO -- display the found item or report it has not been found
-
-    pass
-
+    # Check if there has been an booking entered (do this after getting the other functionality working)
+    if number_of_bookings == 0:
+        print("ERROR: Please enter at least one booking")
+        return
+    else:
+        # Read the search key
+        #ERR: sẽ ra sau nếu người dùng nhập dư khoảng trắng trước/sau tên
+        search_name = input("Please enter the booking name ==> ")
+        
+        # Perform a case-insensitive search in the booking names list
+        found = False  # Flag to check if the booking is found
+        
+        # Loop though the current entries in the booking names list to search for the search key
+        for i in range(number_of_bookings):
+            # Compare the lowercase versions of the booking name
+            if search_name.lower() == booking_names[i].lower():
+                # Calculate the charge for each booking using the calculate_charge function
+                charge = calculate_charge(booking_passengers[i])
+                
+                # Display the found item or report it has not been found
+                print_heading()
+                print("{:30s}{:<11d}${:4.2f}".format(booking_names[i], booking_passengers[i], charge))
+                found = True
+                break
+        if not found:
+            print(f"{search_name} not found")
 #----------------------------------------------------------
 # Function 5
 #----------------------------------------------------------
 def save_bookings():
     # TODO -- save the entries as a csv (comma seperated file) in the current folder called bookings.csv
     pass
+
 
 #----------------------------------------------------------
 # Function 6
