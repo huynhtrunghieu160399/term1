@@ -6,7 +6,8 @@
 #*********************************************************************************************************************
 # Question:
 # 1. Cac bien nen duoc khai bao theo dinh dang nao: camel hay ...
-# 2.
+# 2. func 4:
+#           #ERR: sẽ ra sau nếu người dùng nhập dư khoảng trắng trước/sau tên
 # 3. 
 #*********************************************************************************************************************
 
@@ -96,11 +97,11 @@ def get_booking_name():
 #--------------------------------------
 def get_number_of_passenger(booking_name):
     while True:
-        num_str = input("Enter the number of passengers for '" + booking_name + "' ==> ")
+        num_str = input("Enter the number of passengers for "" + booking_name + "" ==> ")
         if num_str != "":
             is_valid = True
             for ch in num_str:
-                if ch < '0' or ch > '9':
+                if ch < "0" or ch > "9":
                     is_valid = False
                     break
                 
@@ -218,7 +219,6 @@ def display_statistics():
             average_passengers = total_passengers / number_of_bookings
             
             # Display the statistics info
-            #ERR: Trường hợp chỉ có 1 người đặt bàn thì sao???
             print("\nStatistics for Nemo Tours  ")
             print(f"{max_booking_name} has the maximum number of {max_passenger} passengers")
             print(f"{min_booking_name} has the minimum number of {min_passenger} passengers")
@@ -236,7 +236,6 @@ def search_bookings():
         return
     else:
         # Read the search key
-        #ERR: sẽ ra sau nếu người dùng nhập dư khoảng trắng trước/sau tên
         search_name = input("Please enter the booking name ==> ")
         
         # Perform a case-insensitive search in the booking names list
@@ -261,13 +260,12 @@ def search_bookings():
 #----------------------------------------------------------
 def save_bookings():
     if number_of_bookings == 0:
-        # ERR: Hiển thị gì khi chưa có data nào được nhập
         print("ERROR: Please enter at least one booking")
         return
     else:
         # Save the entries as a csv (comma seperated file) in the current folder called bookings.csv
         # Open the bookings.csv file with write mode ("w"), will overwrite if the file already exists
-        with open('bookings.csv', 'w', newline='') as file:
+        with open("bookings.csv", "w", newline="") as file:
             writer = csv.writer(file)
 
             # Write title (optional)
@@ -291,7 +289,7 @@ def read_bookings():
         return
     
     # Open the bookings.csv file and read the data from it
-    with open('bookings.csv', 'r') as file:
+    with open("bookings.csv", "r") as file:
         # Skip the header line if present
         next(file)
 
@@ -302,12 +300,12 @@ def read_bookings():
             booking_names.append(booking_name)
             booking_passengers.append(int(passengers)) # Convert the passenger number to int
     
-    # Cập nhật số lượng bookings
+    # Update the number of bookings
     global number_of_bookings
     number_of_bookings = len(booking_names)
 
     print("Data successfully read from the file")
-    print(f"Loaded {number_of_bookings} bookings.")  # Kiểm tra xem có bao nhiêu booking đã được đọc vào
+    print(f"Loaded {number_of_bookings} bookings.")  # Check have many bookings have been read
 
 
 #-----------------------------------------------------------------------------
