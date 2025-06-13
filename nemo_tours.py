@@ -4,12 +4,6 @@
 # Project name: Nemo Reef Tours Program
 # 
 #*********************************************************************************************************************
-# Question:
-# 1. Cac bien nen duoc khai bao theo dinh dang nao: camel hay ...
-# 2. func 4:
-#           #ERR: sẽ ra sau nếu người dùng nhập dư khoảng trắng trước/sau tên
-# 3. 
-#*********************************************************************************************************************
 
 import csv # For function 5: save_bookings()
 import os # For function 6: read_bookings()
@@ -82,38 +76,31 @@ def process_menu_item():
         choice = get_menu_item()
 
 #--------------------------------------
-# Sub_function 1:
+# Sub_function 1: Get the booking name
 #--------------------------------------
 def get_booking_name():
-    booking_name = input("Please enter the booking name ==> ")
+    booking_name = input("Please enter the booking name ==> ").strip()
     while booking_name == "":
-        print("ERROR: booking name cannot be blank.")
-        booking_name = input("Please enter the booking name ==> ")
+        print("ERROR: booking name cannot be blank")
+        booking_name = input("Please enter the booking name ==> ").strip()
     return booking_name
 
 
 #--------------------------------------
-# Sub_function 2:
+# Sub_function 2: Get the number of passenger
 #--------------------------------------
 def get_number_of_passenger(booking_name):
     while True:
-        num_str = input("Enter the number of passengers for "" + booking_name + "" ==> ")
-        if num_str != "":
-            is_valid = True
-            for ch in num_str:
-                if ch < "0" or ch > "9":
-                    is_valid = False
-                    break
-                
-            if is_valid:
-                num = int(num_str)
-                if num >= 1:
-                    return num
+        num_str = input("Enter the number of passengers for " + "'" + booking_name + "'" + " ==> ").strip()
+        if num_str.isdigit():
+            num = int(num_str)
+            if num >= 1:
+                return num
         print("ERROR: must be numeric and number of passengers must be greater than or equal to one")
 
 
 #--------------------------------------
-#Sub_function 3:
+#Sub_function 3: Calculate the charge
 #--------------------------------------
 def calculate_charge(passengers):
     charge = passengers * PASSENGER_CHARGE
@@ -136,10 +123,10 @@ def print_receipt(name, passengers, charge):
     print("Total charge: " + "$" + format(charge, ".2f"))
 
 #----------------------------------------------------------
-# Function 1:
+# Function 1
 #----------------------------------------------------------
 def enter_booking():
-    global number_of_bookings # ERR???? re-define????
+    global number_of_bookings
 
     # Calling "Sub_function 1" - get_booking_name: to read in the booking name (as a string)
     booking_name = get_booking_name()
@@ -161,7 +148,7 @@ def enter_booking():
     print_receipt(booking_name, passengers, charge)
 
 #----------------------------------------------------------
-# Function 2:
+# Function 2
 #----------------------------------------------------------
 def display_bookings():
     # Check if there has been an booking entered (do this after getting the other functionality working)
@@ -214,17 +201,16 @@ def display_statistics():
                 max_passenger = passengers
                 max_booking_name = booking_names[i]
                 
-            # Calculate average number of passengers
-            # Ensure floating-point division
-            average_passengers = total_passengers / number_of_bookings
-            
-            # Display the statistics info
-            print("\nStatistics for Nemo Tours  ")
-            print(f"{max_booking_name} has the maximum number of {max_passenger} passengers")
-            print(f"{min_booking_name} has the minimum number of {min_passenger} passengers")
-            print(f"Average number of passengers per booking is {average_passengers:.2f}")
-            print(f"The total charges are: ${total_charge:.2f}")
-            
+        # Calculate average number of passengers
+        # Ensure floating-point division
+        average_passengers = total_passengers / number_of_bookings
+        
+        # Display the statistics info
+        print("\nStatistics for Nemo Tours  ")
+        print(f"{max_booking_name} has the maximum number of {max_passenger} passengers")
+        print(f"{min_booking_name} has the minimum number of {min_passenger} passengers")
+        print(f"Average number of passengers per booking is {average_passengers:.2f}")
+        print(f"The total charges are: ${total_charge:.2f}")
 
 #----------------------------------------------------------
 # Function 4
@@ -283,7 +269,7 @@ def save_bookings():
 def read_bookings():
     # Check if the file exists
     # Read the entries and add them to the parallel lists
-    # Check Check if the file exists (bookings.csv file)
+    # Check if the file exists (bookings.csv file)
     if not os.path.exists("./bookings.csv"):
         print("ERROR - file does not exist")
         return
@@ -305,7 +291,7 @@ def read_bookings():
     number_of_bookings = len(booking_names)
 
     print("Data successfully read from the file")
-    print(f"Loaded {number_of_bookings} bookings.")  # Check have many bookings have been read
+    print(f"Loaded {number_of_bookings} bookings")  # Check have many bookings have been read
 
 
 #-----------------------------------------------------------------------------
@@ -314,6 +300,8 @@ def read_bookings():
 print("Welcome to the Nemo Reef Tours Management System")
 process_menu_item() 
 
+print("Thank you for using Nemo Reef Tours Management System")
+print("Program written by 12281833")
 #-----------------------------------------------------------------------------
 # End
 #-----------------------------------------------------------------------------
